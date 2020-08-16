@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
-
-import {addCarAction, startLoadingCars, fetchAutoComplete} from "../../store/actions/carActions";
+import {addCarAction, fetchAutoComplete, startLoadingCars} from "../../store/actions/carActions";
 import AutoComplete from "../AutoComplete";
 
 const CreateCar = () => {
-
     const dispatch = useDispatch();
 
     const [name, setName] = useState('');

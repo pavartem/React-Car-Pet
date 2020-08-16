@@ -4,17 +4,18 @@ import CreateCar from "./components/CreateCar";
 import CardItem from "./components/CardItem";
 import {useSelector} from "react-redux";
 import Spinner from "./components/Spinner";
+import NavBar from "./components/NavBar";
+
+export const ThemeContext = React.createContext({theme: 'dark'});
 
 function App() {
     const cars = useSelector((state) => state.cars);
     const loading = useSelector((state) => state.loading);
     return (
         <>
-            <nav className="navbar navbar-dark bg-dark">
-                <div className="navbar-brand">
-                    Redux Hooks
-                </div>
-            </nav>
+            <ThemeContext.Consumer>
+                {({theme}) => <NavBar theme={theme}/>}
+            </ThemeContext.Consumer>
             <div className="container p-3">
                 <div className="row">
                     <div className="col-md-8">
