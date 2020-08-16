@@ -24,6 +24,16 @@ export function reducer(state, {type, payload}) {
                 ...state,
                 cars: state.cars.map(car => (car.id === payload.id) ? {...car, added: !car.added} : car)
             };
+        case types.START_AUTO_COMPLETE:
+            return {
+                ...state,
+                loadingAutoComplete: true,
+            }
+        case types.SUCCESS_AUTO_COMPLETE:
+            return {
+                ...state,
+                autoComplete: [...payload],
+            }
 
         default:
             return {
