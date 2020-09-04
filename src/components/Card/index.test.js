@@ -17,7 +17,11 @@ describe('<CardItem/>', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('Should render right props for card', () => {
-        expect(wrapper.find(<Card car={car}/>)).toBeTruthy();
+    it('Should render right card title prop', () => {
+        expect(wrapper.contains(<h5 className="card-title">BMW 320</h5>)).toBeTruthy();
+    });
+
+    it('Should render right card description prop', () => {
+        expect(wrapper.contains(<p className="card-text">tedggfdgdgf</p>)).toBeTruthy();
     });
 });
