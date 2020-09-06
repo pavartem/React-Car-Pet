@@ -5,6 +5,10 @@ export const addCarsAction = (cars) => ({
     payload: cars,
 });
 
+export const addCarsActionError = () => ({
+    type: types.ADD_CARS_ERROR,
+});
+
 export const toggleCartItemAction = (cartItem) => ({
     type: types.TOGGLE_ITEM_CART,
     payload: cartItem,

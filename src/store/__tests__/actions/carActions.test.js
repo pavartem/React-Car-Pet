@@ -1,8 +1,13 @@
 import * as actions from '../../actions/carActions';
+import {addCarsAction, addCarsActionError} from '../../actions/carActions';
 import * as types from '../../types';
 import configureMockStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock';
 import thunk from "redux-thunk";
+import {getCarsSaga, watchGetCarsSaga} from "../../sagas/cars";
+import {takeEvery} from 'redux-saga/effects';
+import {runSaga} from 'redux-saga';
+import * as api from '../../../api/api';
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -41,7 +46,9 @@ describe('carActions', () => {
     })
 });
 
-describe('async actions', () => {
+// Redux thunk
+
+describe('async actions redux thunk', () => {
 
     const autoCompleteCars = [{
         id: 1,
@@ -73,4 +80,57 @@ describe('async actions', () => {
             expect(store.getActions()).toEqual(expectedActions)
         })
     })
+});
+
+// Redux saga
+
+describe('async actions redux saga', () => {
+
+    const myCars = [{
+        id: 1,
+        name: 'BMW 320',
+        description: 'tedggfdgdgf',
+        added: false,
+    }];
+
+    const initialStore = {
+        loading: false,
+        loadingAutoComplete: false,
+        autoComplete: []
+    };
+
+    it('Should wait for a user to click load cars btn', () => {
+        const gen = watchGetCarsSaga();
+        expect(gen.next().value).toEqual(takeEvery(types.START_LOADING_CARS, getCarsSaga));
+    })
+
+    it('Should call api and dispatch success action', async () => {
+        const dispatchedActions = [];
+
+        api.fetchMyCars = jest.fn(() => Promise.resolve(myCars));
+
+        const fakeStore = {
+            getState: () => (initialStore),
+            dispatch: action => dispatchedActions.push(action),
+        };
+
+        await runSaga(fakeStore, getCarsSaga).done;
+        expect(api.fetchMyCars.mock.calls.length).toBe(1);
+        expect(dispatchedActions).toContainEqual(addCarsAction(myCars));
+    });
+
+    it('Should handle errors in case of fail', async () => {
+        const dispatchedActions = [];
+        api.fetchMyCars = jest.fn(() => Promise.reject());
+
+        const fakeStore = {
+            getState: () => (initialStore),
+            dispatch: action => dispatchedActions.push(action),
+        };
+
+        await runSaga(fakeStore, getCarsSaga).done;
+        expect(api.fetchMyCars.mock.calls.length).toBe(1);
+        expect(dispatchedActions).toContainEqual(addCarsActionError());
+    });
+
 })

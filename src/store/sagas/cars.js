@@ -1,10 +1,15 @@
-import {put, takeEvery} from 'redux-saga/effects';
+import {call, put, takeEvery} from 'redux-saga/effects';
 import * as types from '../types';
-import {addCarsAction} from "../actions/carActions";
+import {addCarsAction, addCarsActionError} from "../actions/carActions";
+import {fetchMyCars} from "../../api/api";
 
-function* getCarsSaga() {
-    const cars = yield fetch('http://localhost:3002/myCars').then(res => res.json());
-    yield put(addCarsAction(cars));
+export function* getCarsSaga() {
+    try {
+        const cars = yield call(fetchMyCars);
+        yield put(addCarsAction(cars));
+    } catch (e) {
+        yield put(addCarsActionError());
+    }
 }
 
 export function* watchGetCarsSaga() {
