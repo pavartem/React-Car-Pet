@@ -1,11 +1,11 @@
 language: node_js
 node_js:
-  - '12'
+- '12'
 script:
-  - npm test
-  - npm run build
+- npm test
+- npm run build
 deploy:
   provider: heroku
   app: react-car
   api_key:
-    secure: 36cacb64-6892-4e04-ae20-6d107185d600
+    secure: LGFYbDcidpgCKiXImt6ZEezM1lBp32Ubyrir2e4GYsOhBayFmhSBYWodk+e4ofUnSirBlayP+ql8lY9WEK+UqPFF9H/jkEvL5rqUuB28tg4lWf89nintEbj9vCIeqE9GNn3Ftx1AZ3z9hvcMQiRvnLNPUf+o0B37pTDNjjG6kPWUtAdo+WmHguZvrDt9+FBj/okYE3PtSbdCVfJqcJk2Bi1tSylQtUBPxakGRLv9uFdbbuBE5IkyJW4fmSqNcLASUP+gL16IxPSkedxPUAT7Z4weUxXfVwN4wlyJ/5oH+0rZdWXp5O45NMTZa0PcmfzGeeUc0WCaI+D6t1SmhdnRTBGmHuSXg/+Esj8d30W4eIm6uuEs288+AlNYNA326kJp2sLtXcHZQDiW2d6UIlz7MFf8euKttbjm1Gz7h1o7+ingdfWzgKsk/mjDBOzprqCx3qOZV9zEK/a2j3yywSx20TctjM5yLz37eAucBUCJFQgNuCdy69kIkomRRLDlahXPwYZecsPkkSrN1PG0AveodtSWHYx/FtnSWyVYNE5X6x/KOhzkbufniQna1ViAQ9UwE3yEzIZ0LioaA2QNptpWgqvqIx4aTUsbrTR1nbfI8XmqVqGCCmnh2Q0ld0guhscnE51gNIAJe4L0wkcOj0TBueBCjH6kHXHa53lvsNRO8rc=
