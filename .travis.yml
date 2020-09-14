@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - '12'
+script:
+  - npm test
+  - npm run build
+deploy:
+  provider: heroku
+  app: react-car
+  api_key:
+    secure: 36cacb64-6892-4e04-ae20-6d107185d600
